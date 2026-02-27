@@ -1,0 +1,352 @@
+<!--
+  ============================================================
+  README: Student Homepage — index.html
+  ============================================================
+  Author  : Judgely Peñero Fermato
+  Course  : BSIT-2D
+  School  : Partido State University
+  Semester: 2nd Semester, AY 2025-2026
+  Instructor: Arjay Abio
+
+  Description:
+    Homepage for the student portfolio. Contains:
+
+    A. Student Profile — complete identification information
+       as required by the activity instructions.
+
+    B. Activity Links — clickable links to submitted work:
+       1. Guess the Secret Word Game (previous activity)
+          https://judgely.github.io/JudgelyGuessingGame/
+       2. Browser Environment Dashboard (current activity)
+          https://judgely.github.io/JudgelyBrowser/
+
+  Notes:
+    - Single HTML file with embedded CSS
+    - No external frameworks used
+    - Mobile/Android optimized layout
+    - Fonts from Google Fonts (Share Tech Mono, Orbitron)
+  ============================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Portfolio — Judgely Peñero Fermato</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@600;900&display=swap" rel="stylesheet"/>
+  <style>
+    /* =====================================================
+       CSS VARIABLES
+    ===================================================== */
+    :root {
+      --bg:           #0a0e0a;
+      --panel:        #0f1810;
+      --border:       #1e3a1e;
+      --green:        #39ff14;
+      --green-dim:    #1a7a00;
+      --amber:        #ffb700;
+      --text:         #c8e6c8;
+      --muted:        #4a7a4a;
+      --font-mono:    'Share Tech Mono', monospace;
+      --font-display: 'Orbitron', sans-serif;
+    }
+
+    /* =====================================================
+       RESET
+    ===================================================== */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* =====================================================
+       BODY
+    ===================================================== */
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-mono);
+      min-height: 100vh;
+      padding: 30px 16px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Decorative scanline overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 2px,
+        rgba(0,0,0,0.07) 2px, rgba(0,0,0,0.07) 4px
+      );
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* =====================================================
+       LAYOUT
+    ===================================================== */
+    .container { max-width: 780px; margin: 0 auto; }
+
+    /* =====================================================
+       PAGE HEADING
+    ===================================================== */
+    .site-label {
+      font-family: var(--font-display);
+      font-size: 9px;
+      letter-spacing: 6px;
+      color: var(--green-dim);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .site-name {
+      font-family: var(--font-display);
+      font-size: 22px;
+      color: var(--green);
+      text-shadow: 0 0 24px rgba(57,255,20,0.35);
+      margin-bottom: 24px;
+      line-height: 1.3;
+    }
+
+    /* =====================================================
+       CARD
+    ===================================================== */
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      animation: fadeUp 0.5s ease both;
+    }
+    .card:nth-child(3) { animation-delay: 0.12s; }
+    .card:nth-child(4) { animation-delay: 0.22s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Card header bar */
+    .card-header {
+      background: var(--border);
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--green-dim);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-tag {
+      font-family: var(--font-display);
+      font-size: 8px;
+      letter-spacing: 3px;
+      color: var(--green);
+      background: rgba(57,255,20,0.08);
+      border: 1px solid var(--green-dim);
+      padding: 3px 8px;
+      border-radius: 2px;
+    }
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--text);
+    }
+    .card-body { padding: 16px; }
+
+    /* =====================================================
+       PROFILE FIELDS — stacked vertically for mobile
+    ===================================================== */
+    .profile-name-large {
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: var(--green);
+      margin-bottom: 16px;
+      text-shadow: 0 0 14px rgba(57,255,20,0.3);
+      line-height: 1.3;
+    }
+    .info-row {
+      display: flex;
+      flex-direction: column;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-key {
+      color: var(--muted);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 2px;
+    }
+    .info-val {
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    /* =====================================================
+       ACTIVITY LINKS
+    ===================================================== */
+    .activity-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+    }
+    .activity-link:last-child { border-bottom: none; }
+    .activity-link:active { background: rgba(57,255,20,0.06); }
+
+    .activity-num {
+      font-family: var(--font-display);
+      font-size: 10px;
+      color: var(--green);
+      background: rgba(57,255,20,0.08);
+      border: 1px solid var(--green-dim);
+      padding: 5px 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .activity-info { flex: 1; }
+    .activity-title {
+      font-family: var(--font-display);
+      font-size: 12px;
+      color: var(--green);
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+    .activity-desc {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .activity-url {
+      font-size: 10px;
+      color: var(--green-dim);
+      margin-top: 4px;
+      word-break: break-all;
+    }
+    .activity-arrow {
+      color: var(--green-dim);
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 2px;
+      padding-bottom: 20px;
+      line-height: 2;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Page heading -->
+    <p class="site-label">// Student Portfolio — Homepage</p>
+    <h1 class="site-name">Judgely Peñero Fermato</h1>
+
+    <!-- ====================================================
+         SECTION A: STUDENT PROFILE
+         Displays all required student identification fields
+    ==================================================== -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-tag">SECTION A</span>
+        <span class="card-title">STUDENT PROFILE</span>
+      </div>
+      <div class="card-body">
+
+        <div class="profile-name-large">Judgely Peñero Fermato</div>
+
+        <div class="info-row">
+          <span class="info-key">Complete Name</span>
+          <span class="info-val">Judgely Peñero Fermato</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Sex</span>
+          <span class="info-val">Male</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Address</span>
+          <span class="info-val">314, Zone 4, Lagonoy, Camarines Sur</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Course, Year and Section</span>
+          <span class="info-val">BSIT-2D</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Name of School</span>
+          <span class="info-val">Partido State University</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Semester and Academic Year</span>
+          <span class="info-val">2nd Semester, AY 2025–2026</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Course Code and Title</span>
+          <span class="info-val">(To be filled)</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Name of Subject Instructor</span>
+          <span class="info-val">Arjay Abio</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ====================================================
+         SECTION B: ACTIVITY LINKS
+         Clickable links to submitted activities
+    ==================================================== -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-tag">SECTION B</span>
+        <span class="card-title">ACTIVITY LINKS</span>
+      </div>
+      <div class="card-body" style="padding:0;">
+
+        <!-- Activity 1: Previous submission -->
+        <a class="activity-link"
+           href="https://judgely.github.io/JudgelyGuessingGame/"
+           target="_blank">
+          <span class="activity-num">01</span>
+          <div class="activity-info">
+            <div class="activity-title">Guess the Secret Word Game</div>
+            <div class="activity-desc">Interactive JavaScript word-guessing game — Previous Activity</div>
+            <div class="activity-url">judgely.github.io/JudgelyGuessingGame/</div>
+          </div>
+          <span class="activity-arrow">→</span>
+        </a>
+
+        <!-- Activity 2: Current submission -->
+        <a class="activity-link"
+           href="https://judgely.github.io/JudgelyBrowser/"
+           target="_blank">
+          <span class="activity-num">02</span>
+          <div class="activity-info">
+            <div class="activity-title">Browser Environment Dashboard</div>
+            <div class="activity-desc">JS browser objects: navigator, screen, location, history — Current Activity</div>
+            <div class="activity-url">https://judgely.github.io/JudgelyBrowser/</div>
+          </div>
+          <span class="activity-arrow">→</span>
+        </a>
+
+      </div>
+    </div>
+
+    <footer>
+      // Partido State University &nbsp;·&nbsp; BSIT-2D<br/>
+      // 2nd Semester, AY 2025–2026 &nbsp;·&nbsp; Instructor: Arjay Abio
+    </footer>
+
+  </div>
+</body>
+</html>
